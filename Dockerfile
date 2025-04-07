@@ -21,6 +21,7 @@ RUN pip install --no-cache-dir torch torchvision torchaudio --index-url https://
 # Copy the requirements file
 COPY requirements.txt .
 # Install dependencies from requirements.txt (pip should skip torch if already installed)
+# Pinned versions in requirements.txt should help here.
 RUN pip install --no-cache-dir -r requirements.txt
 # Install gunicorn, the production WSGI server we'll use to run Flask
 RUN pip install --no-cache-dir gunicorn

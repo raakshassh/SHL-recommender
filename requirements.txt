@@ -1,11 +1,12 @@
 flask
 faiss-cpu # Or faiss-gpu if you have CUDA setup
 numpy
-sentence-transformers
+# Pinned versions to try and resolve compatibility issues
+sentence-transformers==2.7.0
+transformers==4.38.2
+# torch, torchvision, torchaudio are installed explicitly in Dockerfile - DO NOT list them here
 google-generativeai
 python-dotenv
 # Added for web scraping
 requests
 beautifulsoup4
-torch
-transformers
