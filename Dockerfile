@@ -20,11 +20,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install --no-cache-dir gunicorn
 
 # Copy the rest of the application code, data, templates, static files
-# into the /app directory in the container. Files listed in .dockerignore
-# will be excluded from this copy operation.
 COPY . .
-# Note: This assumes your 'data/', 'templates/', 'static/' folders and
-# .py files are in the same directory as the Dockerfile (project root).
 
 # Make port available (Render maps this)
 EXPOSE ${PORT:-5001}
@@ -32,5 +28,6 @@ EXPOSE ${PORT:-5001}
 # Define environment variable for the port inside the container
 ENV PORT ${PORT:-5001}
 
-# Command to run the application using Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:${PORT}", "--workers", "1", "--threads", "8", "--timeout", "0", "app:app"]
+# Command to run the application using Gunicorn (Shell Form)
+# Using the shell form allows the $PORT variable to be substituted correctly by the shell.
+CMD gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 app:app
