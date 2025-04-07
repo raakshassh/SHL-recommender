@@ -11,10 +11,16 @@ WORKDIR /app
 # Install system dependencies if needed (uncomment if faiss-cpu needs specific libs)
 # RUN apt-get update && apt-get install -y --no-install-recommends build-essential && rm -rf /var/lib/apt/lists/*
 
-# Copy the requirements file first to leverage Docker cache
-COPY requirements.txt .
+# --- Explicit PyTorch CPU Installation ---
+# Install torch, torchvision, torchaudio first using the official index URL for CPU.
+# This often ensures better compatibility than relying solely on requirements.txt for torch.
+# Using --no-cache-dir to potentially reduce image size.
+RUN pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
-# Install Python dependencies from requirements.txt
+# --- Install remaining dependencies ---
+# Copy the requirements file
+COPY requirements.txt .
+# Install dependencies from requirements.txt (pip should skip torch if already installed)
 RUN pip install --no-cache-dir -r requirements.txt
 # Install gunicorn, the production WSGI server we'll use to run Flask
 RUN pip install --no-cache-dir gunicorn
@@ -29,5 +35,4 @@ EXPOSE ${PORT:-5001}
 ENV PORT ${PORT:-5001}
 
 # Command to run the application using Gunicorn (Shell Form)
-# Using the shell form allows the $PORT variable to be substituted correctly by the shell.
 CMD gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 app:app
