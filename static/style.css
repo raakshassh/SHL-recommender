@@ -1,0 +1,204 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Montserrat', sans-serif; /* Updated Font */
+  background-color: #f7f7f9;
+  color: #333;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header & Navigation */
+header {
+  background-color: #121821;
+  color: #fff;
+  padding: 5px 0;
+  flex-shrink: 0;
+}
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+.logo a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.nav-links { /* Kept ul for potential future use, but empty */
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+/* Removed empty .nav-links li a {} rule */
+
+/* Main Content Area */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 25px;
+    width: 100%;
+    flex-grow: 1;
+}
+
+/* Search Input Section - Redesigned */
+.search-input-section {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  margin-bottom: 25px;
+  border-radius: 8px;
+}
+.chat-input-form {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 10px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 5px 5px 5px 15px;
+    background-color: #fff;
+}
+/* Style for textarea to make it look like an input but resize */
+.chat-input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    padding: 10px 0;
+    font-size: 1em;
+    background-color: transparent;
+    min-width: 50px;
+    resize: none; /* Disable manual resize handle */
+    overflow-y: hidden; /* Hide scrollbar initially */
+    line-height: 1.4; /* Adjust line height */
+    min-height: calc(1.4em + 20px); /* Match button height roughly */
+    max-height: 150px; /* Optional: Limit max height */
+    font-family: inherit; /* Inherit body font */
+}
+.send-button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0;
+}
+.send-button:hover {
+    background-color: #2980b9;
+}
+.send-button i {
+    font-size: 1.1em;
+}
+
+
+/* Catalog Section */
+/* Removed empty .catalog {} rule */
+.results-info { margin-bottom: 15px; }
+.result-header {
+    font-size: 1.4em;
+    color: #16a085;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #1abc9c;
+}
+
+/* Table Styles */
+.custom__table-responsive { overflow-x: auto; }
+#catalogTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  border-radius: 8px;
+  overflow: hidden;
+}
+#catalogTable th,
+#catalogTable td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eaeaea;
+  text-align: left;
+  font-size: 0.95em;
+  vertical-align: middle;
+}
+#catalogTable th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #555;
+  white-space: nowrap;
+}
+.custom__table-heading__title { font-weight: 500; }
+.custom__table-heading__general { text-align: center; white-space: nowrap; }
+.product-catalogue__keys { font-size: 0.9em; text-align: left; white-space: normal; }
+.product-catalogue__keys span { display: inline-block; }
+
+#catalogTable tbody tr:hover { background-color: #f9f9f9; }
+
+/* Updated Link Style */
+#catalogTable a {
+  color: #913b21; /* New color */
+  font-weight: 500;
+  text-decoration: underline; /* Add underline */
+  text-decoration-color: #913b21; /* Match underline color */
+  text-underline-offset: 2px; /* Optional: adjust underline position */
+  transition: color 0.3s, text-decoration-color 0.3s;
+}
+#catalogTable a:hover {
+  color: #7a301a; /* Slightly darker shade for hover */
+  text-decoration-color: #7a301a;
+}
+
+/* Status Icon Styling */
+.catalogue__circle {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 1px solid transparent;
+    vertical-align: middle;
+}
+.catalogue__circle.-yes {
+    background-color: #2ecc71; /* Green */
+    border-color: #27ae60; /* Slightly darker green border */
+}
+/* Removed empty .catalogue__circle.-no rule */
+
+
+/* Footer Removed - No footer styles needed */
+
+/* Utility Classes */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
+.error-message { color: #e74c3c; background-color: #fceded; border: 1px solid #f5c6cb; padding: 10px 15px; border-radius: 4px; margin-top: 15px; }
+.note { color: #004085; background-color: #cce5ff; border: 1px solid #b8daff; padding: 10px 15px; border-radius: 4px; margin-bottom: 15px; font-style: italic; }
+.no-results { text-align: center; color: #7f8c8d; padding: 20px; font-style: italic; }
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+  .main-nav { flex-direction: column; align-items: flex-start; }
+  .nav-links { display: none; } /* Hide empty nav links container on mobile */
+  .search-input-section { margin: 15px; }
+  .catalog { margin: 15px; }
+  .chat-input-form { padding: 5px; }
+  .chat-input { padding: 8px 0 8px 10px;}
+  .send-button { width: 36px; height: 36px; }
+  #catalogTable th, #catalogTable td { font-size: 0.9em; padding: 8px 6px; }
+  .catalogue__circle { width: 8px; height: 8px; }
+}

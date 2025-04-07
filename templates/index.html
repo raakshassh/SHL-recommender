@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHL Assessment Recommender</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <a href="/">SHL Product Recommender</a>
+            </div>
+            <ul class="nav-links">
+                </ul>
+        </nav>
+    </header>
+
+    <div class="main-content">
+
+        <section class="search-input-section">
+            <form method="POST" action="/" class="chat-input-form">
+                <label for="query" class="sr-only">Enter Query:</label>
+                <textarea id="query" name="query" rows="1" required class="chat-input"
+                          placeholder="Enter requirements, job description URL, or skills..."
+                          oninput="autoResize(this)" style="overflow-y: hidden;"
+                >{{ query or '' }}</textarea>
+                <button type="submit" class="send-button" aria-label="Get Recommendations">
+                    <i class="fas fa-paper-plane"></i> </button>
+            </form>
+            {% if error %}
+                <p class="error-message">{{ error }}</p>
+            {% endif %}
+        </section>
+
+        <section class="catalog">
+            {% if results %}
+                <div class="results-info">
+                    {# Display note first if it exists #}
+                    {% if results.note %}
+                        <p class="note">{{ results.note }}</p>
+                    {% endif %}
+
+                    {# Display header based on result type #}
+                    {% if results.recommendations %}
+                        {% if results.result_type == 'package' %}
+                            <h2 class="result-header">Recommended Package (Covers All Skills):</h2>
+                        {% elif results.result_type == 'partial_package' %}
+                            <h2 class="result-header">Recommended Partial Package (Best Coverage Found):</h2>
+                        {% else %}
+                             <h2 class="result-header">Top Recommendations:</h2>
+                        {% endif %}
+                    {% elif results.result_type != 'error' and not results.note %}
+                         <p class="no-results">No suitable recommendations found.</p>
+                    {% endif %}
+                </div>
+
+                {% if results.recommendations %}
+                <div class="custom__table-responsive">
+                    <table id="catalogTable">
+                        <thead>
+                            <tr>
+                                <th class="custom__table-heading__title">Assessment Name</th>
+                                <th class="custom__table-heading__general">Remote Testing Support</th>
+                                <th class="custom__table-heading__general">Adaptive/IRT Support</th>
+                                <th class="custom__table-heading__general">Duration</th>
+                                <th class="custom__table-heading__general">Test Type(s)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {# Dynamically render rows using Jinja2 #}
+                            {% for rec in results.recommendations %}
+                            <tr>
+                                <td class="custom__table-heading__title">
+                                    <a href="{{ rec.URL }}" target="_blank" rel="noopener noreferrer">{{ rec.Name }}</a>
+                                </td>
+                                <td class="custom__table-heading__general">
+                                    {# Fixed Icon Logic: Render span only if 'Yes' #}
+                                    {% if rec['Remote Testing Support'] == 'Yes' %}
+                                        <span class="catalogue__circle -yes" title="Remote Testing: Yes"></span>
+                                    {% else %}
+                                        &nbsp; {# Use non-breaking space for alignment when no icon #}
+                                    {% endif %}
+                                </td>
+                                <td class="custom__table-heading__general">
+                                     {# Fixed Icon Logic: Render span only if 'Yes' #}
+                                     {% if rec['Adaptive/IRT Support'] == 'Yes' %}
+                                         <span class="catalogue__circle -yes" title="Adaptive/IRT: Yes"></span>
+                                     {% else %}
+                                         &nbsp; {# Use non-breaking space for alignment when no icon #}
+                                     {% endif %}
+                                </td>
+                                <td class="custom__table-heading__general"> {# Display Duration #}
+                                    {{ rec.Duration }}
+                                </td>
+                                <td class="custom__table-heading__general product-catalogue__keys">
+                                    {# Display full names as codes aren't available #}
+                                    <span>{{ rec['Test Types'] | join(', ') }}</span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %} {# End if results.recommendations #}
+
+            {% endif %} {# End if results #}
+        </section>
+
+    </div> {# End Main Content Area #}
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

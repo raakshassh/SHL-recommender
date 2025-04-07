@@ -1,0 +1,11 @@
+flask
+faiss-cpu # Or faiss-gpu if you have CUDA setup
+numpy
+sentence-transformers
+google-generativeai
+python-dotenv
+# Added for web scraping
+requests
+beautifulsoup4
+torch
+transformers
