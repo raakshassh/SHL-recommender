@@ -1,0 +1,34 @@
+# Git files
+.git/
+.gitignore
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+
+# Local environment variables (Render uses its own system)
+.env
+*.env
+
+# Dockerfile itself (no need to copy it into the image)
+Dockerfile
+
+# Add any other files/folders you want to exclude from the image
+# e.g., large data files not needed at runtime, test folders
+# tests/
+# data/large_raw_data/

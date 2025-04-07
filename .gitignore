@@ -1,0 +1,35 @@
+# Virtual Environment
+venv/
+env/
+*/venv/
+*/env/
+.venv/
+*/.venv/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+*.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+
+# Runtime files
+*.log
+*.pot
+*.pyc
+
+# FAISS index (if very large and you prefer not to commit)
+# data/*.index
+
+# Other sensitive files or large data files not needed in repo
+# data/large_model_files/
